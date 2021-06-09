@@ -33,4 +33,17 @@ describe('Greeting component', () => {
     const changedEl = screen.getByText('Changed!');
     expect(changedEl).toBeInTheDocument();
   });
+
+  test('does not render "good to see you" if the button was clicked!', () => {
+    render(<Greeting />);
+
+    // Act
+    const btnEl = screen.getByRole('button');
+    userEvent.click(btnEl);
+
+    // Assert
+    // getbytext 는 해당되는 값이 없으면 에러를 반환하고, querybyText는 null을 반환함
+    const outputEl = screen.queryByText('good to see you', { exact: false });
+    expect(outputEl).toBeNull();
+  });
 });
